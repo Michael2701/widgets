@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import Accordion from "./components/Accordion";
+import Dropdown from "./components/Dropdown";
+import Search from './components/Search';
+import Translate from './components/Translate';
+import { useState } from 'react';
 
-function App() {
+
+import Route from './components/Route';
+import Header from './components/Header';
+
+const items = [
+  {
+    title: "What is React?",
+    content: "React is afront end javascript framework"
+  },
+  {
+    title: "Why use React?",
+    content: "React is a favorite JS library among engineers"
+  },
+  {
+    title: "How do you use React",
+    content: "You uese React by creating components"
+  }
+]
+
+const label = "Choose Color";
+const options = [
+  {
+    label: "The color red",
+    value: "red"
+  },
+  {
+    label: "The color green",
+    value: "green"
+  },
+  {
+    label: "The color blue",
+    value: "blue"
+  }
+];
+
+export default () => {
+  const [selected, setSelected] = useState(options[0]);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/search">
+        <Search />
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
+      <Route path="/dropdown">
+        <Dropdown 
+          label={label}
+          options={options} 
+          selected={selected}
+          onSelectedChange={setSelected} 
+        />
+      </Route>
     </div>
   );
 }
-
-export default App;
